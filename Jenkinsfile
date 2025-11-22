@@ -7,6 +7,11 @@ pipeline
         maven 'Maven_3.9.9'
     }
 
+    environment
+    {
+        buildNumber = "${BUILD_NUMBER}"
+    }
+
     stages
     {
         stage('Checkout Code from GitHub')
@@ -22,6 +27,14 @@ pipeline
             steps()
             {
                 sh 'mvn clean package'
+            }
+        }
+
+        stage('Build Docker Image')
+        {
+            steps()
+            {
+                sh 'docker build -t 149536451818.dkr.ecr.ap-south-1.amazonaws.com/maven-web-application:${buildNumber} .'
             }
         }
     }
