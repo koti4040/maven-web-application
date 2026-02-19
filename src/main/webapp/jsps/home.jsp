@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JAIRAM  and GouthamNanda  AI Tech- Home Page</title>
+<title>JAIRAM and GouthamNanda AI Tech-Home Page</title>
 <link href="images/mithunlogo.jpg" rel="icon">
 </head>
 </head>
