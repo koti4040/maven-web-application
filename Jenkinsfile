@@ -1,84 +1,38 @@
-pipeline
+node
 {
-  agent any
-  
-  tools
-  {
-    maven 'Maven_3.8.2'
-  }
-  
-  triggers
-  {
-    pollSCM('* * * * *')
-  }
-  
-  options
-  {
-    timestamps()
-    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5'))
-  }
-  
-  stages
-  {
-    stage('Checkout Code from GitHub')
-    {
-      steps()
-      {
-        git branch: 'development', credentialsId: '957b543e-6f77-4cef-9aec-82e9b0230975', url: 'https://github.com/devopstrainingblr/maven-web-application-1.git'
-      }
-    }
-    
-    stage('Build Project')
-    {
-      steps()
-      {
-        sh "mvn clean package"
-      }
-    }
-    
-    stage('Execute SonarQube Report')
-    {
-      steps()
-      {
-        sh "mvn clean sonar:sonar"
-      }
-    }
-    
-    stage('Upload Artifacts to Sonatype Nexus')
-    {
-      steps()
-      {
-        sh "mvn clean deploy"
-      }
-    }
-    
-    stage('Deploy Application to Tomcat')
-    {
-      steps()
-      {
-        sshagent(['bfe1b3c1-c29b-4a4d-b97a-c068b7748cd0'])
-        {
-          sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@35.154.190.162:/opt/apache-tomcat-9.0.50/webapps/"
-        }
-      }
-    }
-  }
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')), pipelineTriggers([cron('* * * * *')])])
 
-post
+def mavenHome = tool name: "maven3.9.12"
+
+echo "The job name is: ${env.JOB_NAME}"
+echo "The Node name is: ${env.NODE_NAME}"
+echo "The Build number is: ${env.BUILD_NUMBER}"
+echo "The Jenkins Home Directory is: ${JENKINS_HOME}"
+
+
+stage('checkoutcode')
 {
-  success
-  {
-    emailext to: 'devopstrainingblr@gmail.com,mithuntechnologies@yahoo.com',
-    subject: "Pipeline Build is Over Build # is ${env.BUILD_NUMBER} and Build Status is ${currentBuild.result}",
-    body: "Pipeline Build is Over Build # is ${env.BUILD_NUMBER} and Build Status is ${currentBuild.result}",
-    replyTo: 'devopstrainingblr@gmail.com'
-  }
-  failure
-  {
-    emailext to: 'devopstrainingblr@gmail.com,mithuntechnologies@yahoo.com',
-    subject: "Pipeline Build is Over Build # is ${env.BUILD_NUMBER} and Build Status is ${currentBuild.result}",
-    body: "Pipeline Build is Over Build # is ${env.BUILD_NUMBER} and Build Status is ${currentBuild.result}",
-    replyTo: 'devopstrainingblr@gmail.com'
-    }
-  }
+         git branch: 'development', credentialsId: 'GitHub', url: 'https://github.com/koti4040/maven-web-application.git'
+}
+stage('Build')
+{
+         sh "${mavenHome}/bin/mvn clean package"
+}
+stage('ExecuteSonarQubeReport')
+{
+         sh "${mavenHome}/bin/mvn clean sonar:sonar"
+}
+stage('UploadArtifactsintoNexus')
+{
+        sh "${mavenHome}/bin/mvn clean deploy"
+}
+stage('DeployappIntoTomcatServer')
+{
+       sshagent(['3a98f948-4014-44fa-ad92-92a50058a37e']) 
+	   {
+	   
+	   sh "scp -o strictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.19.73:/opt/tomcat9/webapps/"
+    
+       }
+}
 }
