@@ -12,6 +12,7 @@ def mavenHome = tool name: "maven3.9.12"
 
 try
 {
+	sendSlackNotifications('STARTED')
 stage('checkoutcode')
 {
          git branch: 'development', credentialsId: 'GitHub', url: 'https://github.com/koti4040/maven-web-application.git'
