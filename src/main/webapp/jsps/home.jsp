@@ -9,11 +9,11 @@
 </head>
 </head>
 <body>
-<h1 align="center">Welcome to Mithun Technologies</h1>
-<h1 align="center">Phone Number: +91 9980923216</h1>
+<h1 align="center">Welcome to JAI Info Systems</h1>
+<h1 align="center">Phone Number: +91 9963902684</h1>
 <h1 align="center">JAI Technologies is a Very Good Training Center for Learning AWS DevOps, Jenkins, Docker, Kubernetes, GitOps, ArgoCD, Terraform and Amazon Web Services</h1>
 
-<h1 align="center">Trainer Name: Bhaskar Reddy Lacchannagari</h1>
+<h1 align="center">Trainer Name: Jai Ram Devansh</h1>
 
 <hr>
 <br>
@@ -44,15 +44,15 @@ out.println("Server Host Name :: "+inetAddress.getHostName());
 		+91 9980923216 and 
 		Devopstrainingblr@Gmail.com
 		<br>
-		<a href="mailto:Devopstrainingblr@Gmail.com">Mail to Mithun Technologies</a>
+		<a href="mailto:Devopstrainingblr@Gmail.com">Mail to Jai Info Systems</a>
 	</span>
 </div>
 <hr>
 	<p> Service : <a href="services/employee/getEmployeeDetails">Get Employee Details </p>
 <hr>
 <hr>
-<p align=center>Mithun Technologies - Consultant, Training and Development Center.</p>
-<p align=center><small>Copyrights 2025 by <a href="http://mithuntechnologies.com/">Mithun Technologies,Bengaluru</a> </small></p>
+<p align=center>Jai Info  - Consultant, Training and Development Center.</p>
+<p align=center><small>Copyrights 2025 by <a href="http://jaitechnologies.com/">JAI Info,Bengaluru</a> </small></p>
 
 </body>
 </html>
